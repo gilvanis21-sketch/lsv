@@ -1,0 +1,61 @@
+---
+// Une page par service, générée à partir de src/data/contenus.ts
+import PageLayout from '../../layouts/PageLayout.astro';
+import Section from '../../components/Section.astro';
+import Card from '../../components/Card.astro';
+import Note from '../../components/Note.astro';
+import { services, LOREM, type Service } from '../../data/contenus';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { service: s } }));
+}
+const { service } = Astro.props as { service: Service };
+const autres = services.filter((s) => s.slug !== service.slug);
+---
+<PageLayout
+  title={service.titre}
+  kicker={`Service ${service.num}`}
+  lead={service.resume}
+  crumbs={[{ href: '/services/', label: 'Services' }, { label: service.titre }]}
+>
+  <Fragment slot="hero">
+    <dl class="facts">
+      <div><dt>Durée</dt><dd>{service.duree}</dd></div>
+      <div><dt>Tarif</dt><dd>{service.tarif}</dd></div>
+      <div><dt>Lieu</dt><dd>Au laboratoire</dd></div>
+    </dl>
+  </Fragment>
+
+  <section aria-labelledby="pourqui">
+    <div class="wrap two">
+      <div class="rv">
+        <h2 id="pourqui">Pour qui ?</h2>
+        <ul class="checks">{service.pourQui.map((p) => <li>{p}</li>)}</ul>
+        <p class="muted section-foot">{LOREM}</p>
+      </div>
+      <div class="rv">
+        <h2>Déroulement</h2>
+        <ol class="steps">
+          {service.deroulement.map((d, i) => <li><span class="num">{i + 1}</span><span><b>{d.etape}</b><br />{d.detail}</span></li>)}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <Section alt>
+    <div class="cta-band rv">
+      <div>
+        <h2>Réserver : {service.titre.toLowerCase()}</h2>
+        <p>Indiquez simplement vos disponibilités, nous confirmons le créneau par e-mail.</p>
+      </div>
+      <a class="btn btn-a" href={`/rendez-vous/?prestation=${encodeURIComponent(service.prestation)}`}>Prendre rendez-vous</a>
+    </div>
+    <Note title="Informer sans promettre.">Les séances ne remplacent pas un avis médical. En cas de trouble persistant, consultez un médecin ou un ORL.</Note>
+  </Section>
+
+  <Section title="Les autres services">
+    <div class="grid">
+      {autres.map((s) => <Card num={s.num} title={s.titre} href={`/services/${s.slug}/`}>{s.resume}</Card>)}
+    </div>
+  </Section>
+</PageLayout>

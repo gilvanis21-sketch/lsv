@@ -1,0 +1,34 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/Section.astro';
+import Card from '../components/Card.astro';
+import { axesRecherche, publications, LOREM } from '../data/contenus';
+import illus from '../assets/provisoire/recherche.jpg';
+---
+<PageLayout title="Recherche" kicker="Le laboratoire" lead="Les axes de recherche du LSV, ses publications et ses interventions." description="Recherche du Laboratoire Scientifique de la Voix : biomarqueurs acoustiques, mesure standardisée, publications et interventions.">
+  <section aria-labelledby="approche">
+    <div class="wrap two center">
+      <div class="rv">
+        <h2 id="approche">Notre approche</h2>
+        <p class="sub sub-0">{LOREM}</p>
+      </div>
+      <figure class="figure rv">
+        <Image src={illus} alt="" widths={[480, 800, 1100]} sizes="(max-width: 860px) 100vw, 540px" loading="eager" />
+      </figure>
+    </div>
+  </section>
+  <Section alt title="Axes de recherche">
+    <div class="grid">{axesRecherche.map((a, i) => <Card num={`0${i + 1}`} title={a.titre}>{a.texte}</Card>)}</div>
+  </Section>
+  <Section id="publications" title="Publications et interventions">
+    <ul class="pubs">
+      {publications.map((p) => (
+        <li class="rv">
+          <span class="y">{p.annee}</span>
+          <span><b>{p.lien ? <a href={p.lien}>{p.titre}</a> : p.titre}</b><br /><span class="s">{p.support}</span></span>
+        </li>
+      ))}
+    </ul>
+  </Section>
+</PageLayout>

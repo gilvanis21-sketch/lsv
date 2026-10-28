@@ -6,14 +6,25 @@
 		X-Frame-Options DENY
 		Referrer-Policy strict-origin-when-cross-origin
 		Permissions-Policy "camera=(), microphone=(), geolocation=()"
-		Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'"
+		Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'"
 	}
 	handle /api/* {
 		reverse_proxy api:3000
 	}
+	# Fichiers versionnés par Astro (nom contenant un hash) : cache long
+	@immutable path /_astro/*
+	header @immutable Cache-Control "public, max-age=31536000, immutable"
+
 	handle {
 		root * /srv
-		try_files {path} /index.html
+		try_files {path} {path}/index.html {path}.html
+		file_server
+	}
+
+	# Vraie page 404 au lieu de renvoyer l'accueil
+	handle_errors 404 {
+		root * /srv
+		rewrite * /404.html
 		file_server
 	}
 }

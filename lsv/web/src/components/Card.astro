@@ -1,0 +1,12 @@
+---
+// Carte de contenu. Si `href` est fourni, toute la carte est cliquable (lien porté par le titre).
+interface Props { title: string; num?: string; href?: string; more?: string; headingLevel?: 'h2' | 'h3' }
+const { title, num, href, more = 'En savoir plus', headingLevel = 'h3' } = Astro.props;
+const H = headingLevel;
+---
+<article class="card rv">
+  {num && <span class="num" aria-hidden="true">{num}</span>}
+  <H>{href ? <a class="stretch" href={href}>{title}</a> : title}</H>
+  <p><slot /></p>
+  {href && <span class="more" aria-hidden="true">{more} →</span>}
+</article>

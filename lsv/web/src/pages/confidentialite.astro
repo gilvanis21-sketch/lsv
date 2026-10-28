@@ -1,0 +1,25 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { site } from '../data/site';
+---
+<PageLayout title="Politique de confidentialité" kicker="Informations légales" description="Comment le Laboratoire Scientifique de la Voix traite vos données personnelles.">
+  <section>
+    <div class="wrap prose">
+      <p><em>Version provisoire, à valider par LSV. Les durées reprennent le fonctionnement actuel de l’API.</em></p>
+      <h2>Responsable du traitement</h2>
+      <p>{site.name}, représenté par {site.responsable}. Contact : <a href={site.contact.emailHref}>{site.contact.email}</a>.</p>
+      <h2>Données collectées</h2>
+      <p>Via le formulaire de rendez-vous : prénom, nom, adresse e-mail, téléphone, prestation choisie, date et plage horaire souhaitées. <strong>Aucune donnée de santé n’est demandée</strong> ; merci de ne pas en saisir.</p>
+      <h2>Finalités et base légale</h2>
+      <p>Traiter votre demande de rendez-vous, vous envoyer une confirmation et un rappel. Base légale : votre consentement, donné en cochant la case du formulaire.</p>
+      <h2>Destinataires</h2>
+      <p>Uniquement LSV. Les données sont hébergées par [hébergeur], dans l’Union européenne, et les e-mails envoyés par [prestataire d’envoi].</p>
+      <h2>Durée de conservation</h2>
+      <p>Les demandes de rendez-vous sont supprimées automatiquement 24 mois après la date souhaitée. Les sauvegardes techniques sont conservées 14 jours.</p>
+      <h2>Vos droits</h2>
+      <p>Vous pouvez accéder à vos données, les rectifier, les effacer, retirer votre consentement ou vous opposer au traitement en écrivant à <a href={site.contact.emailHref}>{site.contact.email}</a>. Chaque e-mail de confirmation contient un lien d’annulation. Vous pouvez aussi saisir la CNIL (cnil.fr).</p>
+      <h2>Sécurité</h2>
+      <p>Connexion chiffrée (HTTPS), accès restreint aux données, limitation du nombre de demandes et sauvegardes régulières.</p>
+    </div>
+  </section>
+</PageLayout>

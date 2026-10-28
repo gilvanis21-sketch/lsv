@@ -1,0 +1,15 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Section from '../../components/Section.astro';
+import Card from '../../components/Card.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { services } from '../../data/contenus';
+---
+<PageLayout title="Services" kicker="Services" lead="Bilans vocaux, accompagnement et ateliers : chaque prestation débute par une écoute attentive et suit une méthode claire, expliquée pas à pas.">
+  <Section>
+    <div class="grid">
+      {services.map((s) => <Card num={s.num} title={s.titre} href={`/services/${s.slug}/`} headingLevel="h2">{s.resume}</Card>)}
+    </div>
+  </Section>
+  <CtaBand />
+</PageLayout>

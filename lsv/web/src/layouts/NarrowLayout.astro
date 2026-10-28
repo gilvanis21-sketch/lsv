@@ -1,0 +1,22 @@
+---
+// Gabarit étroit et centré pour les écrans de formulaire seuls :
+// connexion, mot de passe oublié, profil (Dev 2), panier ou paiement (Dev 3).
+// noindex par défaut : ces pages n'ont pas à être référencées.
+import BaseLayout from './BaseLayout.astro';
+interface Props { title: string; description?: string; lead?: string; noindex?: boolean }
+const { title, description, lead, noindex = true } = Astro.props;
+---
+<BaseLayout title={title} description={description ?? lead} noindex={noindex}>
+  <section class="narrow">
+    <div class="wrap narrow-wrap">
+      <h1>{title}</h1>
+      {lead && <p class="lead">{lead}</p>}
+      <slot />
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .narrow-wrap{max-width:560px}
+  .narrow h1{font-size:clamp(1.9rem,4vw,2.6rem)}
+  .narrow .lead{margin-bottom:28px}
+</style>

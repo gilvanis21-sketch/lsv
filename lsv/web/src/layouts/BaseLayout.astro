@@ -1,0 +1,71 @@
+---
+// Gabarit de base de TOUTES les pages : <head> (SEO, Open Graph), en-tête, pied de page, scripts communs.
+// Props :
+//   title        titre de la page (le suffixe « – LSV » est ajouté automatiquement)
+//   description  description pour les moteurs de recherche (150 à 160 caractères)
+//   image        image Open Graph (ImageMetadata), facultative
+//   noindex      true pour les pages privées (espace membre, back-office, gabarits)
+//   type         'website' | 'article'
+import '@fontsource-variable/manrope';
+import '../styles/global.css';
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+import ogDefault from '../assets/provisoire/video-poster.jpg';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: ImageMetadata;
+  noindex?: boolean;
+  type?: 'website' | 'article';
+}
+const { title, description = site.description, image = ogDefault, noindex = false, type = 'website' } = Astro.props;
+const fullTitle = Astro.url.pathname === '/' ? `${site.name} – ${site.short}` : `${title} – ${site.short}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const og = await getImage({ src: image, width: 1200, height: 630, format: 'jpg', fit: 'cover' });
+const ogUrl = new URL(og.src, Astro.site);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalBusiness',
+  name: site.name,
+  alternateName: site.short,
+  url: Astro.site?.href,
+  description: site.description,
+};
+---
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+  <meta name="theme-color" content="#0f5c5c" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <meta property="og:type" content={type} />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content={site.name} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogUrl} />
+  <meta name="twitter:card" content="summary_large_image" />
+  {Astro.url.pathname === '/' && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  <slot name="head" />
+</head>
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+  <Header />
+  <main id="contenu" tabindex="-1">
+    <slot />
+  </main>
+  <Footer />
+  <script>import '../scripts/main.ts';</script>
+</body>
+</html>

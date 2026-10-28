@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/Section.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { equipe, LOREM } from '../data/contenus';
+import cabinet from '../assets/provisoire/cabinet.jpg';
+---
+<PageLayout title="L’équipe" kicker="Le laboratoire" lead="Le parcours, les qualifications et la méthode de celles et ceux qui vous accompagnent." description="L’équipe du Laboratoire Scientifique de la Voix : parcours et qualifications de M. Fadi Dahdouh et des intervenants.">
+  <section aria-labelledby="fondateur">
+    <div class="wrap two center">
+      <figure class="figure rv">
+        <Image src={cabinet} alt="Photo provisoire du laboratoire" widths={[480, 800, 1100]} sizes="(max-width: 860px) 100vw, 540px" loading="eager" />
+      </figure>
+      <div class="rv">
+        <div class="kick">Fondateur</div>
+        <h2 id="fondateur">M. Fadi Dahdouh</h2>
+        <p class="sub sub-0">Ostéopathe et chef d’entreprise. {LOREM}</p>
+        <ul class="checks">
+          <li>[Diplôme ou formation]</li>
+          <li>[Diplôme ou formation]</li>
+          <li>[Expérience significative]</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <Section alt title="Les intervenants">
+    <div class="grid">
+      {equipe.map((m) => (
+        <article class="card person rv">
+          <Image src={m.photo} alt={`Portrait de ${m.nom}`} widths={[300, 600]} sizes="(max-width: 600px) 100vw, 270px" />
+          <div class="in">
+            <h3>{m.nom}</h3>
+            <p class="role">{m.role}</p>
+            <p>{m.bio}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </Section>
+  <CtaBand />
+</PageLayout>

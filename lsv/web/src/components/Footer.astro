@@ -1,0 +1,37 @@
+---
+import Logo from './Logo.astro';
+import { site, footerNav, legalNav } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <Logo />
+        <p>{site.name}</p>
+        <p>{site.tagline}</p>
+      </div>
+      {footerNav.map((col) => (
+        <nav aria-labelledby={`f-${col.title}`}>
+          <h2 id={`f-${col.title}`}>{col.title}</h2>
+          <ul>{col.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+        </nav>
+      ))}
+      <div>
+        <h2>Nous trouver</h2>
+        <address>
+          <ul>
+            <li>{site.contact.adresse}</li>
+            <li>{site.contact.ville}</li>
+            <li><a href={site.contact.telephoneHref}>{site.contact.telephone}</a></li>
+            <li><a href={site.contact.emailHref}>{site.contact.email}</a></li>
+          </ul>
+        </address>
+      </div>
+    </div>
+    <nav class="legal" aria-label="Informations légales">
+      <span>© {year} {site.short}</span>
+      {legalNav.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+  </div>
+</footer>

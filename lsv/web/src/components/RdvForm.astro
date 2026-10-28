@@ -1,0 +1,68 @@
+---
+// Formulaire de demande de rendez-vous, branché sur POST /api/rdv.
+// Contrat d'API (api/server.js) :
+//   { prenom, nom, email, tel, prestation, date: "AAAA-MM-JJ", plage, consent: "on", site: "" (pot de miel) }
+//   201 → enregistré · 204 → pot de miel · 400 → données invalides · 429 → trop de demandes · 500 → erreur serveur
+// Les valeurs de `prestation` et `plage` doivent rester identiques aux enums de l'API.
+import Field from './Field.astro';
+import { services } from '../data/contenus';
+interface Props { prestation?: string }
+const { prestation: preselection } = Astro.props;
+const plages = ['Matin', 'Après-midi', 'Fin de journée'];
+---
+<div class="rdv-box rv">
+  <form class="form" id="rdv-form" action="/api/rdv" method="post" novalidate aria-describedby="rdv-legend">
+    <p id="rdv-legend" class="hint">Les champs marqués <span class="req">*</span> sont obligatoires.</p>
+    <div class="f">
+      <Field id="rdv-prenom" name="prenom" label="Prénom" required autocomplete="given-name" maxlength="80" />
+      <Field id="rdv-nom" name="nom" label="Nom" required autocomplete="family-name" maxlength="80" />
+      <Field id="rdv-email" name="email" label="E-mail" type="email" required autocomplete="email" maxlength="120" inputmode="email" />
+      <Field id="rdv-tel" name="tel" label="Téléphone" type="tel" required autocomplete="tel" maxlength="30" inputmode="tel" />
+      <Field id="rdv-prestation" name="prestation" label="Prestation" as="select" required full>
+        <option value="">Choisir…</option>
+        {services.map((s) => <option value={s.prestation} selected={s.prestation === preselection}>{s.titre}</option>)}
+      </Field>
+      <Field id="rdv-date" name="date" label="Date souhaitée" type="date" required />
+      <Field id="rdv-plage" name="plage" label="Plage horaire" as="select" required>
+        <option value="">Choisir…</option>
+        {plages.map((p) => <option value={p}>{p}</option>)}
+      </Field>
+
+      <div class="hp" aria-hidden="true">
+        <label for="rdv-site">Ne pas remplir ce champ</label>
+        <input id="rdv-site" name="site" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div class="full warn" role="note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        <span>Ne saisissez aucune information de santé dans ce formulaire : le motif de consultation sera abordé lors du rendez-vous.</span>
+      </div>
+
+      <div class="full">
+        <label class="chk" for="rdv-consent">
+          <input type="checkbox" id="rdv-consent" name="consent" value="on" required aria-describedby="rdv-consent-err" />
+          <span>J’accepte que LSV utilise ces informations pour traiter ma demande de rendez-vous et m’envoyer une confirmation et un rappel, conformément à la <a href="/confidentialite/">politique de confidentialité</a>. Les demandes sont conservées 24 mois au maximum. <span class="req" aria-hidden="true">*</span></span>
+        </label>
+        <span class="err" id="rdv-consent-err"></span>
+      </div>
+
+      <div class="full alert alert-error" id="rdv-alert" role="alert"></div>
+
+      <div class="full">
+        <button class="btn btn-a btn-block" type="submit">Envoyer ma demande</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="form done" id="rdv-done" tabindex="-1" hidden>
+    <div class="tick" aria-hidden="true">✓</div>
+    <h2 id="rdv-done-title">Demande envoyée</h2>
+    <p>Votre demande est bien prise en compte. Vous allez recevoir une confirmation par e-mail, avec un lien pour annuler si besoin.</p>
+    <p>Pensez à vérifier vos courriers indésirables.</p>
+  </div>
+</div>
+
+<script>
+  import { initRdvForm } from '../scripts/rdv-form';
+  initRdvForm();
+</script>
