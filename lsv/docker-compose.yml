@@ -1,0 +1,64 @@
+services:
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./site:/srv:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: [api]
+    networks: [front]
+
+  api:
+    build: ./api
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://lsv:${DB_PASSWORD}@db:5432/lsv
+    depends_on:
+      db: { condition: service_healthy }
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    networks: [front, back]
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: lsv
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: lsv
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lsv"]
+      interval: 5s
+      retries: 10
+    networks: [back]
+
+  backup:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      PGPASSWORD: ${DB_PASSWORD}
+    volumes: ["./backups:/backups"]
+    depends_on:
+      db: { condition: service_healthy }
+    entrypoint: ["/bin/sh", "-c", "while true; do pg_dump -h db -U lsv lsv | gzip > /backups/lsv_$$(date +%F).sql.gz; find /backups -name '*.gz' -mtime +14 -delete; sleep 86400; done"]
+    networks: [back]
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:
+
+networks:
+  front:
+  back:
+    internal: true

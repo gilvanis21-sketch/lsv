@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Laboratoire Scientifique de la Voix – LSV</title>
+<meta name="description" content="Le Laboratoire Scientifique de la Voix vous accompagne pour comprendre, préserver et améliorer votre voix. Prenez rendez-vous en ligne.">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4faf8;--surface:#fff;--ink:#0d2b2c;--muted:#52706f;--brand:#0f5c5c;--on-brand:#fff;--brand-2:#23a59b;--accent:#f0883a;--on-accent:#2a1300;--line:#d7e6e3;--soft:#e6f2ef;--shadow:0 10px 30px rgba(15,92,92,.10)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#071819;--surface:#0e2627;--ink:#e8f3f1;--muted:#9bb8b5;--brand:#4fc3b8;--on-brand:#052221;--brand-2:#23a59b;--accent:#f5a05a;--line:#1c3b3c;--soft:#0b2122;--shadow:0 10px 30px rgba(0,0,0,.35)}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#071819;--surface:#0e2627;--ink:#e8f3f1;--muted:#9bb8b5;--brand:#4fc3b8;--on-brand:#052221;--brand-2:#23a59b;--accent:#f5a05a;--line:#1c3b3c;--soft:#0b2122;--shadow:0 10px 30px rgba(0,0,0,.35)}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.65 Manrope,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px)}
+a{color:inherit}
+h1,h2,h3{line-height:1.15;margin:0;letter-spacing:-.02em}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;text-decoration:none;color:var(--brand);font-size:1.1rem}
+.logo svg{width:34px;height:34px}
+nav{display:flex;gap:26px;align-items:center}
+nav a{text-decoration:none;font-weight:600;font-size:.95rem;color:var(--muted)}
+nav a:hover{color:var(--brand)}
+#menu{display:none;background:none;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:8px 12px;font:inherit;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:999px;font:inherit;font-weight:700;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.btn-a{background:var(--accent);color:var(--on-accent)}
+.btn-o{border-color:var(--brand);color:var(--brand);background:transparent}
+.btn-s{padding:9px 18px;font-size:.92rem}
+.hero{position:relative;overflow:hidden;padding:64px 0 90px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);background:var(--soft);padding:7px 14px;border-radius:999px;margin-bottom:20px}
+h1{font-size:clamp(2.3rem,5.4vw,4rem);font-weight:800}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--brand-2),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:1.15rem;color:var(--muted);max-width:34em;margin:22px 0 30px}
+.cta{display:flex;flex-wrap:wrap;gap:14px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px;padding:0;list-style:none}
+.chips li{font-size:.88rem;font-weight:600;color:var(--muted);border:1px solid var(--line);background:var(--surface);padding:7px 14px;border-radius:999px}
+.chips li::before{content:"●";color:var(--brand-2);margin-right:8px;font-size:.7rem}
+.viz{position:relative;aspect-ratio:1/1;border-radius:36px;background:radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--brand-2) 30%,transparent),transparent 62%),var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);display:grid;place-items:center;overflow:hidden}
+.viz::before,.viz::after{content:"";position:absolute;inset:12%;border-radius:50%;border:1px solid var(--brand-2);opacity:.35;animation:ring 4s ease-out infinite}
+.viz::after{animation-delay:-2s}
+@keyframes ring{from{transform:scale(.6);opacity:.5}to{transform:scale(1.25);opacity:0}}
+.wave{position:relative;z-index:1;display:flex;align-items:center;gap:4px;width:84%;height:56%}
+.wave i{flex:1;height:var(--h);border-radius:99px;background:linear-gradient(var(--brand-2),var(--accent));animation:eq 1.8s ease-in-out infinite;animation-delay:calc(var(--i)*-90ms)}
+@keyframes eq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+.tag{position:absolute;z-index:2;bottom:18px;left:18px;right:18px;display:flex;justify-content:space-between;font-size:.78rem;font-weight:700;color:var(--muted);letter-spacing:.06em}
+section{padding:84px 0}
+.alt{background:var(--soft)}
+.kick{font-size:.8rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:10px}
+h2{font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:800;max-width:20em}
+.sub{color:var(--muted);max-width:42em;margin:14px 0 40px}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:28px;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.card h3{font-size:1.2rem;margin:10px 0 8px}
+.card p{margin:0;color:var(--muted);font-size:.97rem}
+.num{font-weight:800;font-size:.95rem;color:var(--accent)}
+.note{display:flex;gap:14px;align-items:flex-start;margin-top:28px;padding:18px 22px;border-left:4px solid var(--brand);background:var(--surface);border-radius:0 16px 16px 0;color:var(--muted);font-size:.95rem}
+.note b{color:var(--ink)}
+.news{padding:0;overflow:hidden}
+.news .top{height:110px;background:linear-gradient(120deg,var(--brand),var(--brand-2));position:relative}
+.news:nth-child(2) .top{background:linear-gradient(120deg,var(--brand-2),var(--accent))}
+.news:nth-child(3) .top{background:linear-gradient(120deg,var(--accent),var(--brand))}
+.news .top::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 3px,transparent 3px 14px);-webkit-mask:linear-gradient(transparent,#000 50%,transparent);mask:linear-gradient(transparent,#000 50%,transparent)}
+.news .in{padding:24px 28px 28px}
+.meta{font-size:.8rem;font-weight:700;color:var(--muted)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.who{display:flex;gap:18px;align-items:center;margin-bottom:22px}
+.av{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:1.5rem;color:var(--on-brand);background:linear-gradient(135deg,var(--brand),var(--brand-2));flex:none}
+.refs{display:grid;gap:14px;padding:0;margin:0;list-style:none}
+.refs li{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 22px}
+.refs b{display:block}
+.refs span{color:var(--muted);font-size:.93rem}
+.logos{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
+.logos div{border:2px dashed var(--line);border-radius:14px;height:58px;display:grid;place-items:center;font-size:.72rem;font-weight:700;color:var(--muted)}
+form{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:32px;box-shadow:var(--shadow)}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:block;font-weight:700;font-size:.88rem;margin-bottom:6px}
+input,select{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+input:focus,select:focus,button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.full{grid-column:1/-1}
+.warn{background:color-mix(in srgb,var(--accent) 16%,transparent);border-radius:12px;padding:12px 16px;font-size:.9rem;font-weight:600}
+.chk{display:flex;gap:12px;align-items:flex-start;font-weight:400;font-size:.88rem;color:var(--muted)}
+.chk input{width:20px;height:20px;margin-top:3px;flex:none;accent-color:var(--brand)}
+.hp{position:absolute;left:-9999px;height:0;overflow:hidden}
+#ok{display:none;text-align:center;padding:30px 10px}
+#ok .tick{width:64px;height:64px;border-radius:50%;background:var(--brand);color:var(--on-brand);display:grid;place-items:center;margin:0 auto 16px;font-size:1.8rem}
+.steps{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:16px}
+.steps li{display:flex;gap:14px;color:var(--muted)}
+.steps b{color:var(--ink)}
+.steps .num{width:34px;height:34px;border-radius:50%;background:var(--soft);display:grid;place-items:center;flex:none}
+footer{background:var(--brand);color:var(--on-brand);padding:56px 0 40px}
+footer .grid{margin-bottom:30px}
+footer h3{font-size:1rem;margin-bottom:8px}
+footer p,footer a{color:inherit;opacity:.88;font-size:.95rem;margin:0}
+.legal{border-top:1px solid rgba(255,255,255,.25);padding-top:20px;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:.85rem;opacity:.85}
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
+.js .rv.in{opacity:1;transform:none}
+@media (max-width:860px){
+ .hero .wrap,.two{grid-template-columns:1fr}
+ .hero{padding-top:36px}
+ #menu{display:block}
+ nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 20px 16px}
+ nav.open{display:flex}
+ nav a{padding:12px 0}
+ .f{grid-template-columns:1fr}
+ form{padding:22px}
+ section{padding:60px 0}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap bar">
+  <a class="logo" href="#accueil" aria-label="LSV, accueil">
+   <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="var(--brand)"/><g stroke="var(--on-brand)" stroke-width="3" stroke-linecap="round"><path d="M9 20v0M14 15v10M20 9v22M26 14v12M31 18v4"/></g></svg>
+   LSV
+  </a>
+  <button id="menu" aria-expanded="false" aria-controls="nav">Menu</button>
+  <nav id="nav">
+   <a href="#services">Services</a>
+   <a href="#voix">La voix</a>
+   <a href="#references">Références</a>
+   <a href="#actus">Actualités</a>
+   <a href="#contact">Contact</a>
+   <a class="btn btn-a btn-s" href="#rdv">Prendre rendez-vous</a>
+  </nav>
+ </div>
+</header>
+
+<main>
+<div class="hero" id="accueil">
+ <div class="wrap">
+  <div>
+   <span class="eyebrow">Laboratoire Scientifique de la Voix</span>
+   <h1>Comprendre et prendre soin de <em>votre voix</em></h1>
+   <p class="lead">Une approche scientifique et bienveillante pour analyser, préserver et améliorer votre voix, que vous soyez chanteur, enseignant, orateur ou simplement gêné au quotidien.</p>
+   <div class="cta">
+    <a class="btn btn-a" href="#rdv">Prendre rendez-vous</a>
+    <a class="btn btn-o" href="#services">Découvrir nos services</a>
+   </div>
+   <ul class="chips">
+    <li>Approche scientifique</li>
+    <li>Aucune donnée de santé en ligne</li>
+    <li>Réponse sous 48&nbsp;h</li>
+   </ul>
+  </div>
+  <div class="viz rv" aria-hidden="true">
+   <div class="wave" id="wave"></div>
+   <div class="tag"><span>80 Hz</span><span>SPECTRE VOCAL</span><span>8&nbsp;kHz</span></div>
+  </div>
+ </div>
+</div>
+
+<section id="services" class="alt">
+ <div class="wrap">
+  <div class="kick rv">Services</div>
+  <h2 class="rv">Un accompagnement adapté à chaque voix</h2>
+  <p class="sub rv">Chaque séance débute par une écoute attentive et se poursuit avec des méthodes claires, expliquées pas à pas.</p>
+  <div class="grid">
+   <article class="card rv"><span class="num">01</span><h3>Bilan vocal</h3><p>Écoute, observation et analyse de votre voix pour comprendre son fonctionnement et ses points de fragilité.</p></article>
+   <article class="card rv"><span class="num">02</span><h3>Accompagnement vocal</h3><p>Séances personnalisées pour retrouver confort, souffle et aisance dans la parole.</p></article>
+   <article class="card rv"><span class="num">03</span><h3>Voix professionnelle</h3><p>Chanteurs, enseignants, comédiens, conférenciers : tenir dans la durée sans se fatiguer.</p></article>
+   <article class="card rv"><span class="num">04</span><h3>Ateliers d’hygiène vocale</h3><p>Conseils pratiques et exercices simples pour les équipes, écoles et associations.</p></article>
+  </div>
+ </div>
+</section>
+
+<section id="voix">
+ <div class="wrap">
+  <div class="kick rv">Anomalies de la voix</div>
+  <h2 class="rv">Reconnaître les signes, savoir quand agir</h2>
+  <p class="sub rv">Votre voix change, se fatigue ou disparaît ? Voici les situations les plus fréquentes.</p>
+  <div class="grid">
+   <div class="card rv"><h3>Dysphonie</h3><p>Voix rauque, voilée ou irrégulière, qui change de timbre.</p></div>
+   <div class="card rv"><h3>Voix cassée</h3><p>Ruptures soudaines, sons qui « sautent » en parlant ou en chantant.</p></div>
+   <div class="card rv"><h3>Extinction de voix</h3><p>Perte partielle ou totale de la voix, souvent après un effort ou une infection.</p></div>
+   <div class="card rv"><h3>Fatigue vocale</h3><p>Gorge tendue, voix qui s’épuise en fin de journée.</p></div>
+   <div class="card rv"><h3>Voix tremblante</h3><p>Instabilité, manque de souffle ou de contrôle, notamment sous le stress.</p></div>
+   <div class="card rv"><h3>Voix des professionnels</h3><p>Prévention du surmenage vocal chez ceux qui parlent beaucoup.</p></div>
+  </div>
+  <div class="note rv"><span>ℹ️</span><span><b>Information, pas diagnostic.</b> Si votre voix reste altérée plus de deux semaines, consultez un médecin ou un ORL. Le laboratoire n’établit pas de diagnostic médical et ne promet aucune guérison.</span></div>
+ </div>
+</section>
+
+<section id="references" class="alt">
+ <div class="wrap two">
+  <div class="rv">
+   <div class="kick">Références</div>
+   <h2>Une expertise de terrain</h2>
+   <div class="who" style="margin-top:26px"><div class="av">FD</div><div><b>M. Fadi Dahdouh</b><br><span style="color:var(--muted)">Ostéopathe et chef d’entreprise, fondateur du LSV</span></div></div>
+   <p style="color:var(--muted);margin:0">Présentez ici le parcours, la philosophie et la méthode du laboratoire : une manière simple de rassurer avant le premier rendez-vous.</p>
+   <div class="logos" aria-label="Partenaires"><div>LOGO</div><div>LOGO</div><div>LOGO</div><div>LOGO</div></div>
+  </div>
+  <ul class="refs">
+   <li class="rv"><b>Formations et diplômes</b><span>À compléter avec les éléments fournis par le client.</span></li>
+   <li class="rv"><b>Collaborations et partenaires</b><span>Hôpitaux, écoles de musique, associations, entreprises.</span></li>
+   <li class="rv"><b>Publications et interventions</b><span>Articles, conférences, formations animées.</span></li>
+   <li class="rv"><b>Témoignages</b><span>Publiés uniquement avec l’accord écrit des personnes.</span></li>
+  </ul>
+ </div>
+</section>
+
+<section id="actus">
+ <div class="wrap">
+  <div class="kick rv">Actualités</div>
+  <h2 class="rv">Conseils et nouvelles du laboratoire</h2>
+  <p class="sub rv"></p>
+  <div class="grid">
+   <article class="card news rv"><div class="top"></div><div class="in"><span class="meta">CONSEIL · 4 MIN</span><h3>5 gestes simples pour ménager sa voix</h3><p>Hydratation, pauses, posture : les bases de l’hygiène vocale.</p></div></article>
+   <article class="card news rv"><div class="top"></div><div class="in"><span class="meta">COMPRENDRE · 6 MIN</span><h3>Pourquoi ma voix se fatigue-t-elle le soir ?</h3><p>Ce qui se passe dans le larynx et comment l’éviter.</p></div></article>
+   <article class="card news rv"><div class="top"></div><div class="in"><span class="meta">ÉVÉNEMENT</span><h3>Atelier voix et prise de parole</h3><p>Une séance collective pour gagner en confiance et en projection.</p></div></article>
+  </div>
+ </div>
+</section>
+
+<section id="rdv" class="alt">
+ <div class="wrap two">
+  <div class="rv">
+   <div class="kick">Rendez-vous</div>
+   <h2>Réservez votre séance en deux minutes</h2>
+   <p class="sub" style="margin-bottom:0">Choisissez une prestation et un créneau souhaité : nous vous confirmons le rendez-vous par e-mail.</p>
+   <ol class="steps">
+    <li><span class="num">1</span><span><b>Vous envoyez votre demande</b><br>Uniquement vos coordonnées et vos disponibilités.</span></li>
+    <li><span class="num">2</span><span><b>Vous recevez une confirmation</b><br>Par e-mail, avec un lien pour modifier ou annuler.</span></li>
+    <li><span class="num">3</span><span><b>Un rappel vous est envoyé</b><br>24 à 48&nbsp;h avant la séance.</span></li>
+   </ol>
+  </div>
+  <form id="form" class="rv" novalidate>
+   <div class="f">
+    <div><label for="p">Prénom</label><input id="p" name="prenom" autocomplete="given-name" required></div>
+    <div><label for="n">Nom</label><input id="n" name="nom" autocomplete="family-name" required></div>
+    <div><label for="e">E-mail</label><input id="e" type="email" name="email" autocomplete="email" required></div>
+    <div><label for="t">Téléphone</label><input id="t" type="tel" name="tel" autocomplete="tel" required></div>
+    <div class="full"><label for="s">Prestation</label>
+     <select id="s" name="prestation" required><option value="">Choisir…</option><option>Bilan vocal</option><option>Accompagnement vocal</option><option>Voix professionnelle</option><option>Atelier d’hygiène vocale</option></select></div>
+    <div><label for="d">Date souhaitée</label><input id="d" type="date" name="date" required></div>
+    <div><label for="h">Plage horaire</label>
+     <select id="h" name="plage" required><option value="">Choisir…</option><option>Matin</option><option>Après-midi</option><option>Fin de journée</option></select></div>
+    <div class="hp" aria-hidden="true"><label>Ne pas remplir<input name="site" tabindex="-1" autocomplete="off"></label></div>
+    <div class="full warn">🔒 Ne saisissez aucune information de santé dans ce formulaire.</div>
+    <label class="full chk"><input type="checkbox" name="consent" required> <span>J’accepte que LSV utilise ces informations pour traiter ma demande de rendez-vous, conformément à la <a href="#contact">politique de confidentialité</a>. Mes données ne sont conservées que le temps nécessaire.</span></label>
+    <div class="full"><button class="btn btn-a" type="submit" style="width:100%">Envoyer ma demande</button></div>
+   </div>
+  </form>
+  <div id="ok" role="status"></div>
+ </div>
+</section>
+</main>
+
+<footer id="contact">
+ <div class="wrap">
+  <div class="grid">
+   <div><h3>Laboratoire Scientifique de la Voix</h3><p>Comprendre et prendre soin de votre voix.</p></div>
+   <div><h3>Adresse</h3><p>[Adresse du laboratoire]<br>[Accès transports · parking · PMR]</p></div>
+   <div><h3>Contact</h3><p>[Téléphone]<br>[contact@lsv.fr]</p></div>
+   <div><h3>Horaires</h3><p>[Lundi – Vendredi]<br>[9&nbsp;h – 19&nbsp;h]</p></div>
+  </div>
+  <div class="legal"><span>© 2026 LSV</span><a href="#contact">Mentions légales</a><a href="#contact">Politique de confidentialité</a><a href="#contact">Cookies</a></div>
+ </div>
+</footer>
+
+<script>
+const w=document.getElementById('wave');
+for(let i=0;i<41;i++){const b=document.createElement('i');b.style.cssText='--h:'+(18+Math.abs(Math.sin(i*.45)*Math.cos(i*.17))*82)+'%;--i:'+i;w.appendChild(b)}
+const m=document.getElementById('menu'),nv=document.getElementById('nav');
+m.onclick=()=>m.setAttribute('aria-expanded',nv.classList.toggle('open'));
+nv.onclick=e=>{if(e.target.tagName==='A'){nv.classList.remove('open');m.setAttribute('aria-expanded','false')}};
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+document.getElementById('d').min=new Date().toISOString().slice(0,10);
+const f=document.getElementById('form');
+f.addEventListener('submit',async e=>{
+ e.preventDefault();
+ if(!f.reportValidity())return;
+ const btn=f.querySelector('button[type=submit]');btn.disabled=true;
+ try{
+  const r=await fetch('/api/rdv',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(f)))});
+  if(!r.ok)throw new Error(r.status);
+  const ok=document.getElementById('ok');
+  ok.innerHTML='<div class="tick">✓</div><h3>Merci '+f.prenom.value.replace(/[<>&]/g,'')+' !</h3><p style="color:var(--muted)">Votre demande est bien prise en compte. Vous allez recevoir une confirmation par e-mail.</p>';
+  f.style.display='none';ok.style.display='block';
+ }catch(err){alert('Une erreur est survenue. Merci de réessayer ou de nous appeler.')}
+ finally{btn.disabled=false}
+});
+</script>
+</body>
+</html>
