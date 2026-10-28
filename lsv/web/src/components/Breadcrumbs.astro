@@ -1,0 +1,15 @@
+---
+// Fil d'Ariane. `items` : [{ href, label }], le dernier élément est la page courante.
+interface Props { items: { href?: string; label: string }[] }
+const { items } = Astro.props;
+---
+<nav class="crumbs" aria-label="Fil d'Ariane">
+  <ol>
+    <li><a href="/">Accueil</a></li>
+    {items.map((it, i) =>
+      i === items.length - 1 || !it.href
+        ? <li aria-current="page">{it.label}</li>
+        : <li><a href={it.href}>{it.label}</a></li>
+    )}
+  </ol>
+</nav>

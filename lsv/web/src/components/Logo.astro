@@ -1,0 +1,14 @@
+---
+// Logo LSV (SVG). `href` vers l'accueil par défaut.
+interface Props { href?: string }
+const { href = '/' } = Astro.props;
+---
+<a class="logo" href={href} aria-label="LSV, Laboratoire Scientifique de la Voix, retour à l'accueil">
+  <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+    <rect width="40" height="40" rx="12" fill="currentColor" />
+    <g class="logo-bars" stroke-width="3" stroke-linecap="round">
+      <path d="M9 20v0M14 15v10M20 9v22M26 14v12M31 18v4" />
+    </g>
+  </svg>
+  LSV
+</a>

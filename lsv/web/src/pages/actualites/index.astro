@@ -1,0 +1,12 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Section from '../../components/Section.astro';
+import NewsCard from '../../components/NewsCard.astro';
+import { actus } from '../../data/contenus';
+const liste = [...actus].sort((a, b) => b.date.localeCompare(a.date));
+---
+<PageLayout title="Actualités" kicker="Actualités" lead="Conseils, articles sur la voix et l’ostéopathie, et nouvelles du laboratoire." description="Actualités du Laboratoire Scientifique de la Voix : conseils pour la voix, articles et événements.">
+  <Section>
+    <div class="grid grid-3">{liste.map((a) => <NewsCard actu={a} headingLevel="h2" />)}</div>
+  </Section>
+</PageLayout>

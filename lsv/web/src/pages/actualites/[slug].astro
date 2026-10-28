@@ -1,0 +1,17 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { actus, type Actu } from '../../data/contenus';
+export function getStaticPaths() {
+  return actus.map((a) => ({ params: { slug: a.slug }, props: { actu: a } }));
+}
+const { actu } = Astro.props as { actu: Actu };
+---
+<ArticleLayout actu={actu}>
+  {actu.contenu.map((p, i) => (
+    <>
+      {i === 1 && <h2>Intertitre provisoire</h2>}
+      <p>{p}</p>
+    </>
+  ))}
+  <p><a href="/actualites/">← Toutes les actualités</a></p>
+</ArticleLayout>

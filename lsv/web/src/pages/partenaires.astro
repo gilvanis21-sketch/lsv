@@ -1,0 +1,26 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/Section.astro';
+import Note from '../components/Note.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { partenaires, temoignages } from '../data/contenus';
+---
+<PageLayout title="Partenaires et témoignages" kicker="Références" lead="Établissements, écoles et associations qui travaillent avec le laboratoire, et retours de personnes accompagnées." description="Partenaires du Laboratoire Scientifique de la Voix et témoignages de personnes accompagnées.">
+  <Section title="Ils travaillent avec nous">
+    <ul class="logos rv" aria-label="Partenaires">
+      {partenaires.map((p) => <li>{p.nom}<small>{p.type}</small></li>)}
+    </ul>
+  </Section>
+  <Section id="temoignages" alt title="Témoignages">
+    <div class="grid grid-3">
+      {temoignages.map((t) => (
+        <figure class="card quote rv">
+          <blockquote><p>« {t.texte} »</p></blockquote>
+          <figcaption>{t.auteur} <span>· {t.contexte}</span></figcaption>
+        </figure>
+      ))}
+    </div>
+    <Note title="Consentement.">Chaque témoignage est publié avec l’accord écrit de la personne et ne contient aucune donnée de santé.</Note>
+  </Section>
+  <CtaBand title="Devenir partenaire" text="École, entreprise, association : parlons d’un atelier ou d’une collaboration." href="/contact/" label="Nous contacter" />
+</PageLayout>

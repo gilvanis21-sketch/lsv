@@ -1,0 +1,27 @@
+---
+// Lecteur vidéo natif, accessible et léger :
+// - preload="none" : rien n'est téléchargé avant le clic (chargement différé) ;
+// - affiche (poster) optimisée en WebP ;
+// - sous-titres WebVTT optionnels.
+// Pour les vidéos réservées aux membres, le Dev 2 passe une URL signée dans `src`.
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Props {
+  src: string;
+  type?: string;
+  poster: ImageMetadata;
+  title: string;
+  captions?: string;
+  caption?: string;
+}
+const { src, type = 'video/mp4', poster, title, captions, caption } = Astro.props;
+const posterImg = await getImage({ src: poster, width: 1280, format: 'webp' });
+---
+<figure class="video rv">
+  <video controls preload="none" playsinline poster={posterImg.src} width="1280" height="720" aria-label={title}>
+    <source src={src} type={type} />
+    {captions && <track kind="captions" src={captions} srclang="fr" label="Français" default />}
+    <p>Votre navigateur ne lit pas cette vidéo. <a href={src}>Télécharger la vidéo</a>.</p>
+  </video>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

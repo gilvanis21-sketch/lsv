@@ -1,0 +1,23 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { site } from '../data/site';
+---
+<PageLayout title="Mentions légales" kicker="Informations légales" description="Mentions légales du site du Laboratoire Scientifique de la Voix.">
+  <section>
+    <div class="wrap prose">
+      <p><em>Modèle provisoire : chaque champ entre crochets doit être complété et validé par LSV.</em></p>
+      <h2>Éditeur du site</h2>
+      <p>{site.name} ({site.short}), [forme juridique] au capital de [montant] €<br />Siège : {site.contact.adresse}, {site.contact.ville}<br />SIRET : [numéro] · RCS : [ville et numéro] · TVA : [numéro]<br />Téléphone : {site.contact.telephone} · E-mail : {site.contact.email}</p>
+      <h2>Directeur de la publication</h2>
+      <p>{site.responsable}, [qualité].</p>
+      <h2>Hébergement</h2>
+      <p>[Nom de l’hébergeur], [adresse], [téléphone].</p>
+      <h2>Propriété intellectuelle</h2>
+      <p>L’ensemble des contenus du site (textes, images, vidéos, logo) est la propriété de LSV ou de ses partenaires. Toute reproduction sans autorisation écrite est interdite.</p>
+      <h2>Responsabilité</h2>
+      <p>Les informations du site sont données à titre pédagogique. Elles ne constituent ni un diagnostic ni un avis médical et ne remplacent pas une consultation auprès d’un professionnel de santé.</p>
+      <h2>Données personnelles</h2>
+      <p>Voir la <a href="/confidentialite/">politique de confidentialité</a> et la page <a href="/cookies/">cookies</a>.</p>
+    </div>
+  </section>
+</PageLayout>

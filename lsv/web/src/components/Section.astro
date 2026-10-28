@@ -1,0 +1,21 @@
+---
+// Section standard : surtitre, titre H2, sous-titre, contenu.
+interface Props {
+  id?: string;
+  kicker?: string;
+  title?: string;
+  sub?: string;
+  alt?: boolean;
+  class?: string;
+}
+const { id, kicker, title, sub, alt = false, class: cls = '' } = Astro.props;
+const headingId = id ? `${id}-titre` : undefined;
+---
+<section id={id} class:list={[{ alt }, cls]} aria-labelledby={title ? headingId : undefined}>
+  <div class="wrap">
+    {kicker && <div class="kick rv">{kicker}</div>}
+    {title && <h2 class="rv" id={headingId}>{title}</h2>}
+    {sub && <p class="sub rv">{sub}</p>}
+    <slot />
+  </div>
+</section>

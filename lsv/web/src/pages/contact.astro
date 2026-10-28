@@ -1,0 +1,53 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/Section.astro';
+import { site } from '../data/site';
+import { services } from '../data/contenus';
+import cabinet from '../assets/provisoire/cabinet.jpg';
+---
+<PageLayout title="Contact et informations pratiques" kicker="Contact" lead="Adresse, accès, horaires et tarifs. Pour un rendez-vous, le plus simple est la demande en ligne." description="Contacter le Laboratoire Scientifique de la Voix : adresse, accès, horaires, tarifs et prise de rendez-vous.">
+  <Fragment slot="hero">
+    <p class="cta section-foot">
+      <a class="btn btn-a" href="/rendez-vous/">Prendre rendez-vous</a>
+      <a class="btn btn-o" href={site.contact.telephoneHref}>Appeler</a>
+      <a class="btn btn-o" href={site.contact.emailHref}>Écrire un e-mail</a>
+    </p>
+  </Fragment>
+
+  <section aria-label="Coordonnées et horaires">
+    <div class="wrap two">
+      <div class="rv">
+        <h2>Nous trouver</h2>
+        <address class="muted">
+          <p>{site.contact.adresse}<br />{site.contact.ville}</p>
+          <p>Téléphone : <a href={site.contact.telephoneHref}>{site.contact.telephone}</a><br />E-mail : <a href={site.contact.emailHref}>{site.contact.email}</a></p>
+        </address>
+        <h3 class="section-foot">Accès</h3>
+        <p class="muted">{site.contact.acces}</p>
+      </div>
+      <div class="rv">
+        <h2>Horaires</h2>
+        <table class="hours">
+          <caption class="sr-only">Horaires d’ouverture</caption>
+          <tbody>{site.horaires.map((h) => <tr><th scope="row">{h.jours}</th><td>{h.heures}</td></tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <Section id="tarifs" alt title="Tarifs" sub="Tarifs indicatifs, à confirmer par LSV.">
+    <table class="hours rv">
+      <caption class="sr-only">Tarifs par prestation</caption>
+      <thead><tr><th scope="col">Prestation</th><th scope="col">Durée</th><th scope="col">Tarif</th></tr></thead>
+      <tbody>{services.map((s) => <tr><th scope="row"><a href={`/services/${s.slug}/`}>{s.titre}</a></th><td>{s.duree}</td><td>{s.tarif}</td></tr>)}</tbody>
+    </table>
+  </Section>
+
+  <Section title="Le laboratoire">
+    <figure class="figure rv">
+      <Image src={cabinet} alt="Photo provisoire du laboratoire" widths={[640, 1120, 1600]} sizes="(max-width: 1150px) 100vw, 1120px" />
+      <figcaption>Un plan d’accès sera ajouté ici (image statique, sans carte externe pour éviter les traceurs).</figcaption>
+    </figure>
+  </Section>
+</PageLayout>

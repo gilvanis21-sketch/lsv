@@ -2,7 +2,7 @@
 
 1. Copier `.env.example` en `.env` et le remplir.
 2. Pointer le DNS du domaine vers le serveur (ports 80 et 443 ouverts).
-3. Lancer : `docker compose up -d --build`
+3. Lancer : `docker compose up -d --build` (construit aussi le site Astro de `web/`, voir `web/README.md`)
 4. HTTPS (Let's Encrypt) est obtenu automatiquement par Caddy.
 
 ## Commandes utiles

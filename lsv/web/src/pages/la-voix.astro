@@ -1,0 +1,26 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/Section.astro';
+import Card from '../components/Card.astro';
+import Note from '../components/Note.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { anomalies, LOREM } from '../data/contenus';
+---
+<PageLayout title="Les anomalies de la voix" kicker="La voix" lead="Votre voix change, se fatigue ou disparaît ? Comprendre les situations les plus fréquentes et savoir quand consulter." description="Dysphonie, voix cassée, fatigue vocale : comprendre les anomalies de la voix les plus fréquentes et savoir quand consulter.">
+  <Section title="Comment fonctionne la voix ?">
+    <div class="prose rv"><p>{LOREM}</p><p>{LOREM}</p></div>
+  </Section>
+  <Section alt title="Les situations les plus fréquentes" sub="Contenu pédagogique, à valider par LSV.">
+    <div class="grid">{anomalies.map((a) => <Card title={a.titre}>{a.texte}</Card>)}</div>
+    <Note title="Information, pas diagnostic.">Si votre voix reste altérée plus de deux semaines, consultez un médecin ou un ORL. Le laboratoire n’établit pas de diagnostic médical et ne promet aucune guérison.</Note>
+  </Section>
+  <Section title="Préserver sa voix au quotidien">
+    <ul class="checks rv">
+      <li>Boire régulièrement de l’eau</li>
+      <li>Faire des pauses vocales dans la journée</li>
+      <li>Éviter de forcer dans le bruit</li>
+      <li>Respirer avant de parler, sans crisper les épaules</li>
+    </ul>
+  </Section>
+  <CtaBand />
+</PageLayout>

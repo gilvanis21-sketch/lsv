@@ -1,0 +1,23 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { mainNav, legalNav } from '../data/site';
+import { services, actus } from '../data/contenus';
+---
+<PageLayout title="Plan du site" kicker="Navigation" description="Plan du site du Laboratoire Scientifique de la Voix.">
+  <section>
+    <div class="wrap prose">
+      <ul>
+        <li><a href="/">Accueil</a></li>
+        {mainNav.map((n) => (
+          <li>
+            <a href={n.href}>{n.label}</a>
+            {n.href === '/services/' && <ul>{services.map((s) => <li><a href={`/services/${s.slug}/`}>{s.titre}</a></li>)}</ul>}
+            {n.href === '/actualites/' && <ul>{actus.map((a) => <li><a href={`/actualites/${a.slug}/`}>{a.titre}</a></li>)}</ul>}
+          </li>
+        ))}
+        <li><a href="/rendez-vous/">Prendre rendez-vous</a></li>
+        {legalNav.filter((l) => l.href !== '/plan-du-site/').map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </div>
+  </section>
+</PageLayout>

@@ -1,0 +1,16 @@
+---
+import { Image } from 'astro:assets';
+import type { Actu } from '../data/contenus';
+import { formatDate } from '../data/contenus';
+interface Props { actu: Actu; headingLevel?: 'h2' | 'h3' }
+const { actu, headingLevel = 'h3' } = Astro.props;
+const H = headingLevel;
+---
+<article class="card news rv">
+  <Image class="cover" src={actu.image} alt="" widths={[400, 800]} sizes="(max-width: 700px) 100vw, 360px" />
+  <div class="in">
+    <span class="meta">{actu.categorie} · <time datetime={actu.date}>{formatDate(actu.date)}</time> · {actu.lecture}</span>
+    <H><a class="stretch" href={`/actualites/${actu.slug}/`}>{actu.titre}</a></H>
+    <p>{actu.resume}</p>
+  </div>
+</article>

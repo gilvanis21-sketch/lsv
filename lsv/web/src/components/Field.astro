@@ -1,0 +1,30 @@
+---
+// Champ de formulaire réutilisable : libellé, saisie, aide et zone d'erreur reliées (aria-describedby).
+// Pour un <select>, passer les <option> dans le slot.
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  type?: string;
+  as?: 'input' | 'select' | 'textarea';
+  required?: boolean;
+  autocomplete?: string;
+  hint?: string;
+  full?: boolean;
+  [key: string]: any;
+}
+const { id, name, label, type = 'text', as = 'input', required = false, autocomplete, hint, full = false, ...rest } = Astro.props;
+const describedBy = [hint ? `${id}-hint` : null, `${id}-err`].filter(Boolean).join(' ');
+---
+<div class:list={['field', { full }]}>
+  <label for={id}>{label}{required && <span class="req" aria-hidden="true"> *</span>}</label>
+  {as === 'select' ? (
+    <select id={id} name={name} required={required} aria-describedby={describedBy} autocomplete={autocomplete} {...rest}><slot /></select>
+  ) : as === 'textarea' ? (
+    <textarea id={id} name={name} required={required} aria-describedby={describedBy} autocomplete={autocomplete} {...rest}></textarea>
+  ) : (
+    <input id={id} name={name} type={type} required={required} aria-describedby={describedBy} autocomplete={autocomplete} {...rest} />
+  )}
+  {hint && <span class="hint" id={`${id}-hint`}>{hint}</span>}
+  <span class="err" id={`${id}-err`}></span>
+</div>

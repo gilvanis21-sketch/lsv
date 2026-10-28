@@ -1,0 +1,21 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import RdvForm from '../components/RdvForm.astro';
+import { site } from '../data/site';
+---
+<PageLayout title="Prendre rendez-vous" kicker="Rendez-vous" lead="Choisissez une prestation et un créneau souhaité : nous vous confirmons le rendez-vous par e-mail." description="Demande de rendez-vous en ligne au Laboratoire Scientifique de la Voix : bilan vocal, accompagnement, voix professionnelle, ateliers.">
+  <section aria-label="Formulaire de demande de rendez-vous">
+    <div class="wrap two">
+      <div class="rv">
+        <h2>Comment ça se passe ?</h2>
+        <ol class="steps">
+          <li><span class="num">1</span><span><b>Vous envoyez votre demande</b><br />Uniquement vos coordonnées et vos disponibilités.</span></li>
+          <li><span class="num">2</span><span><b>Vous recevez une confirmation</b><br />Par e-mail, avec un lien pour annuler.</span></li>
+          <li><span class="num">3</span><span><b>Un rappel vous est envoyé</b><br />48&nbsp;h avant la séance.</span></li>
+        </ol>
+        <p class="muted section-foot">Vous préférez téléphoner ? <a href={site.contact.telephoneHref}>{site.contact.telephone}</a></p>
+      </div>
+      <RdvForm />
+    </div>
+  </section>
+</PageLayout>

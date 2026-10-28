@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/Section.astro';
+import Card from '../components/Card.astro';
+import Note from '../components/Note.astro';
+import VideoPlayer from '../components/VideoPlayer.astro';
+import { LOREM, LOREM_COURT } from '../data/contenus';
+import capture from '../assets/provisoire/logiciel.jpg';
+import poster from '../assets/provisoire/video-poster.jpg';
+---
+<PageLayout title="POLYMNIVOX" kicker="Logiciel · lancement en mars" lead="La plateforme d’analyse vocale du LSV : un court enregistrement transformé en informations objectives et comparables dans le temps." description="POLYMNIVOX, la plateforme d’analyse vocale du Laboratoire Scientifique de la Voix : mesure standardisée et suivi de la voix dans le temps." image={capture}>
+  <section aria-labelledby="principe">
+    <div class="wrap two center">
+      <div class="rv">
+        <h2 id="principe">Le principe</h2>
+        <p class="sub">{LOREM}</p>
+        <ul class="checks">
+          <li>Mesure standardisée</li>
+          <li>Interprétation prudente</li>
+          <li>Suivi dans la durée</li>
+        </ul>
+      </div>
+      <figure class="figure rv">
+        <Image src={capture} alt="Capture d’écran provisoire de POLYMNIVOX" widths={[480, 800, 1100]} sizes="(max-width: 860px) 100vw, 540px" loading="eager" />
+        <figcaption>Capture provisoire.</figcaption>
+      </figure>
+    </div>
+  </section>
+  <Section alt kicker="Biomarqueurs acoustiques" title="Ce que l’on mesure" sub="Des indices mesurables extraits du signal vocal.">
+    <div class="grid">
+      <Card num="01" title="Hauteur et stabilité">{LOREM_COURT}</Card>
+      <Card num="02" title="Intensité">{LOREM_COURT}</Card>
+      <Card num="03" title="Qualité du timbre">{LOREM_COURT}</Card>
+      <Card num="04" title="Évolution dans le temps">{LOREM_COURT}</Card>
+    </div>
+  </Section>
+  <section aria-labelledby="demo">
+    <div class="wrap two center">
+      <div class="rv">
+        <h2 id="demo">Démonstration</h2>
+        <p class="sub sub-0">{LOREM}</p>
+        <p class="section-foot"><a class="btn btn-a" href="/contact/">Être informé du lancement</a></p>
+      </div>
+      <VideoPlayer src="/media/presentation-provisoire.mp4" poster={poster} title="Démonstration de POLYMNIVOX (vidéo provisoire)" captions="/media/presentation-provisoire.vtt" />
+    </div>
+  </section>
+  <Section alt>
+    <Note title="Présentation seulement.">Ce site présente POLYMNIVOX mais ne traite ni n’enregistre aucune voix. L’outil ne pose pas de diagnostic médical.</Note>
+  </Section>
+</PageLayout>

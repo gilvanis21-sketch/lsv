@@ -1,0 +1,4 @@
+# Secrets et données locales : ne jamais commiter
+.env
+backups/
+api/node_modules/

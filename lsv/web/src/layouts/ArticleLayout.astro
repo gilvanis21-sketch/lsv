@@ -1,0 +1,32 @@
+---
+// Gabarit d'article (actualités). Le Dev 2 pourra le réutiliser pour les articles venant de /api/actus.
+import { Image } from 'astro:assets';
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { formatDate, type Actu } from '../data/contenus';
+interface Props { actu: Actu }
+const { actu } = Astro.props;
+---
+<BaseLayout title={actu.titre} description={actu.resume} image={actu.image} type="article">
+  <article>
+    <div class="page-hero">
+      <div class="wrap">
+        <Breadcrumbs items={[{ href: '/actualites/', label: 'Actualités' }, { label: actu.titre }]} />
+        <div class="kick">{actu.categorie}</div>
+        <h1>{actu.titre}</h1>
+        <p class="lead">{actu.resume}</p>
+        <p class="meta"><time datetime={actu.date}>{formatDate(actu.date)}</time> · {actu.lecture} de lecture</p>
+      </div>
+    </div>
+    <section>
+      <div class="wrap prose">
+        <figure class="figure">
+          <Image src={actu.image} alt="" widths={[640, 960, 1280]} sizes="(max-width: 860px) 100vw, 46em" loading="eager" fetchpriority="high" />
+        </figure>
+        <slot />
+      </div>
+    </section>
+  </article>
+  <CtaBand />
+</BaseLayout>

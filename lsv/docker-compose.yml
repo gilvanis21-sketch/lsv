@@ -1,13 +1,16 @@
 services:
   caddy:
-    image: caddy:2
+    # Image construite à partir du site Astro (web/) : build du site puis Caddy
+    build:
+      context: ./web
+      args:
+        SITE_URL: https://${DOMAIN}
     restart: unless-stopped
     ports: ["80:80", "443:443"]
     environment:
       DOMAIN: ${DOMAIN}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - ./site:/srv:ro
       - caddy_data:/data
       - caddy_config:/config
     depends_on: [api]

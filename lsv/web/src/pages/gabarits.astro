@@ -1,0 +1,94 @@
+---
+// Page interne (non référencée) : catalogue des gabarits et composants à réutiliser
+// par le Dev 2 (espace membre, back-office) et le Dev 3 (boutique).
+import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/Section.astro';
+import Card from '../components/Card.astro';
+import NewsCard from '../components/NewsCard.astro';
+import Note from '../components/Note.astro';
+import Field from '../components/Field.astro';
+import VideoPlayer from '../components/VideoPlayer.astro';
+import { actus, LOREM_COURT } from '../data/contenus';
+import poster from '../assets/provisoire/video-poster.jpg';
+
+const exPage = `---
+import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/Section.astro';
+---
+<PageLayout title="Mes vidéos" kicker="Espace membre" lead="…"
+  crumbs={[{ href: '/espace-membre/', label: 'Espace membre' }, { label: 'Mes vidéos' }]}
+  noindex>
+  <Section title="Toutes les vidéos" alt>…</Section>
+</PageLayout>`;
+
+const exNarrow = `---
+import NarrowLayout from '../../layouts/NarrowLayout.astro';
+import Field from '../../components/Field.astro';
+---
+<NarrowLayout title="Connexion" lead="Espace réservé aux professionnels.">
+  <form class="form" novalidate>
+    <div class="f">
+      <Field id="login-email" name="email" label="E-mail" type="email" required full autocomplete="username" />
+      <Field id="login-mdp" name="password" label="Mot de passe" type="password" required full autocomplete="current-password" />
+      <div class="full alert alert-error" role="alert"></div>
+      <div class="full"><button class="btn btn-a btn-block">Se connecter</button></div>
+    </div>
+  </form>
+</NarrowLayout>`;
+
+const exVideo = `<VideoPlayer src={urlSigneeDepuisApi} poster={image} title="…" captions="/media/x.vtt" />`;
+---
+<PageLayout title="Gabarits et composants" kicker="Interne · Dev 2 et Dev 3" lead="Catalogue des gabarits du front public à réutiliser pour l’espace membre, le back-office et la boutique. Page non référencée." noindex>
+  <Section title="Gabarits de page" sub="Dans src/layouts/. Tous incluent l’en-tête, le pied de page, les balises SEO et le script commun.">
+    <div class="grid">
+      <Card title="BaseLayout">Coquille de toutes les pages : head, SEO, Open Graph, en-tête, pied de page. Props : title, description, image, noindex.</Card>
+      <Card title="PageLayout">Page intérieure avec bandeau de titre et fil d’Ariane. Props : title, kicker, lead, crumbs, noindex.</Card>
+      <Card title="NarrowLayout">Écran centré pour un formulaire seul : connexion, mot de passe oublié, panier, paiement. noindex par défaut.</Card>
+      <Card title="ArticleLayout">Article d’actualité. Reçoit un objet actu (format proposé pour /api/actus).</Card>
+    </div>
+    <h3 class="section-foot">Page intérieure</h3>
+    <pre class="code" tabindex="0"><code>{exPage}</code></pre>
+    <h3 class="section-foot">Écran de connexion (Dev 2)</h3>
+    <pre class="code" tabindex="0"><code>{exNarrow}</code></pre>
+  </Section>
+
+  <Section alt title="Boutons et alertes">
+    <p class="cta"><a class="btn btn-a" href="#">.btn.btn-a</a><a class="btn btn-o" href="#">.btn.btn-o</a><a class="btn btn-a btn-s" href="#">.btn-s</a><span class="badge">.badge</span></p>
+    <div class="grid section-foot">
+      <div class="alert alert-error">.alert.alert-error : message d’erreur</div>
+      <div class="alert alert-ok">.alert.alert-ok : message de succès</div>
+    </div>
+    <Note title="Note.">Composant Note, pour les avertissements et rappels.</Note>
+  </Section>
+
+  <Section title="Champs de formulaire" sub="Composant Field : libellé, aide et erreur reliés pour les lecteurs d’écran. Pour afficher une erreur : remplir #id-err et poser aria-invalid=true.">
+    <form class="form" novalidate>
+      <div class="f">
+        <Field id="g-nom" name="nom" label="Texte" required />
+        <Field id="g-mail" name="email" label="E-mail" type="email" hint="Exemple : nom@domaine.fr" />
+        <Field id="g-sel" name="choix" label="Liste" as="select"><option>Option A</option><option>Option B</option></Field>
+        <Field id="g-err" name="err" label="Champ en erreur" aria-invalid="true" value="valeur invalide" />
+        <Field id="g-txt" name="txt" label="Zone de texte" as="textarea" full />
+      </div>
+    </form>
+  </Section>
+
+  <Section alt title="Cartes">
+    <div class="grid grid-3">
+      <Card num="01" title="Card avec lien" href="#">{LOREM_COURT}</Card>
+      <NewsCard actu={actus[0]} />
+      <Card title="Card produit (Dev 3)">{LOREM_COURT}<br /><b>[xx €]</b></Card>
+    </div>
+  </Section>
+
+  <Section title="Lecteur vidéo" sub="preload=none : rien n’est téléchargé avant la lecture. Pour les vidéos réservées aux membres, passer l’URL signée renvoyée par /api/videos.">
+    <div class="two">
+      <VideoPlayer src="/media/presentation-provisoire.mp4" poster={poster} title="Exemple de vidéo" captions="/media/presentation-provisoire.vtt" />
+      <pre class="code" tabindex="0"><code>{exVideo}</code></pre>
+    </div>
+  </Section>
+</PageLayout>
+
+<style>
+  .code{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;overflow-x:auto;font-size:.82rem;line-height:1.5}
+</style>
